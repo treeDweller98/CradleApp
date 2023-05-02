@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!--  camera and classifier  -->
+    <LinearLayout
+        android:id="@+id/ll_camera_and_inference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/pv_camera_preview"
+            android:layout_width="280dp"
+            android:layout_height="280dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="captured image" />
+            <ImageView
+                android:id="@+id/iv_captured_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="10dp"
+                android:contentDescription="captured image" />
+            <TextView
+                android:id="@+id/tv_happy_inference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Happy: 0.0" />
+            <TextView
+                android:id="@+id/tv_neutral_inference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Neutral: 0.0" />
+            <TextView
+                android:id="@+id/tv_distress_inference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Distress: 0.0" />
+            <Button
+                android:id="@+id/btn_infer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="infer" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- communications log -->
+    <LinearLayout
+        android:id="@+id/ll_communications_log"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginVertical="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/ll_camera_and_wifi_bar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Communications log" />
+        <TextView
+            android:id="@+id/tv_communications_log"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:scrollbars="vertical"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- arduinoStat+camSwitch+sendNotif bar -->
+    <LinearLayout
+        android:id="@+id/ll_camera_and_wifi_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginVertical="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/ll_send_inference_bar">
+
+        <RadioButton
+            android:id="@+id/rb_arduino_status"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ARDUINO\nSTATE: OFF" />
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/btn_camera_enabler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enable\nCamera" />
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/btn_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notify\nParents" />
+    </LinearLayout>
+
+    <!-- arduino signal bar -->
+    <LinearLayout
+        android:id="@+id/ll_send_inference_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_marginVertical="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/ll_music_player">
+
+        <Button
+            android:id="@+id/btn_send_happy"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="send happy"/>
+        <Button
+            android:id="@+id/btn_send_neutral"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="send neutral"/>
+        <Button
+            android:id="@+id/btn_send_distresed"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="send distress"/>
+    </LinearLayout>
+
+    <!-- lullaby player -->
+    <LinearLayout
+        android:id="@+id/ll_music_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffdd"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_track_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_play"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="o" />
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:padding="10dp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_track_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="00:00 / 00:00"
+            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn_play_happy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play\nHappy" />
+
+            <Button
+                android:id="@+id/btn_play_neutral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:text="Play\nNeutral" />
+
+            <Button
+                android:id="@+id/btn_play_distress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play\nDistress" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
