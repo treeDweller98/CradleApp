@@ -1,6 +1,8 @@
 package com.example.cradleapp;
 
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
@@ -84,41 +86,48 @@ public class CradleController {
 
     public void onReceivedArduinoMessage( byte arduinoMessage ) {
         /** Called by SerialCommunicator upon receiving message from arduino */
-        switch (arduinoMessage) {
-            case PLAY_HAPPY_MUSIC -> {
-                lullabyPlayer.playHappyMusic();
-                display("Command: play happy lullaby");
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                switch (arduinoMessage) {
+                    case PLAY_HAPPY_MUSIC -> {
+                        lullabyPlayer.btn_playHappyMusic.performClick();
+                        display("Command: play happy lullaby");
+                    }
+                    case PLAY_NEUTRAL_MUSIC -> {
+                        lullabyPlayer.btn_playNeutralMusic.performClick();
+                        display("Command: play neutral lullaby");
+                    }
+                    case PLAY_DISTRESS_MUSIC -> {
+                        lullabyPlayer.btn_playDistressedMusic.performClick();
+                        display("Command: play distress lullaby");
+                    }
+                    case PAUSE_MUSIC -> {
+                        lullabyPlayer.btn_play.performClick();
+                        display("Command: pausing lullaby");
+                    }
+                    case RESUME_MUSIC -> {
+                        lullabyPlayer.btn_play.performClick();
+                        display("Command: resuming lullaby");
+                    }
+                    case CAMERA_ON -> {
+                        cameraHandler.btn_cameraEnabler.performClick();
+                        display("Command: starting camera preview");
+                    }
+                    case CAMERA_OFF -> {
+                        cameraHandler.btn_cameraEnabler.performClick();
+                        display("Command: stopping camera preview");
+                    }
+                    case INFER -> {
+                        cameraHandler.btn_infer.performClick();
+                        display("Command: trigger inference");
+                    }
+                    default -> display("Unknown command received: " + arduinoMessage);
+                }
             }
-            case PLAY_NEUTRAL_MUSIC -> {
-                lullabyPlayer.playNeutralMusic();
-                display("Command: play neutral lullaby");
-            }
-            case PLAY_DISTRESS_MUSIC -> {
-                lullabyPlayer.playDistressedMusic();
-                display("Command: play distress lullaby");
-            }
-            case PAUSE_MUSIC -> {
-                lullabyPlayer.pauseMusic();
-                display("Command: pausing lullaby");
-            }
-            case RESUME_MUSIC -> {
-                lullabyPlayer.resumeMusic();
-                display("Command: resuming lullaby");
-            }
-            case CAMERA_ON -> {
-                cameraHandler.startCameraPreview();
-                display("Command: starting camera preview");
-            }
-            case CAMERA_OFF -> {
-                cameraHandler.stopCameraPreview();
-                display("Command: stopping camera preview");
-            }
-            case INFER -> {
-                cameraHandler.triggerInference();
-                display("Command: trigger inference");
-            }
-            default -> display("Unknown command received: " + arduinoMessage);
-        }
+        });
+
     }
 
     private void display(final String message){
