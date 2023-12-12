@@ -11,5 +11,4 @@ For more project details, report and slides, please refer to the project website
 https://treedweller98.github.io/CradleSite/
 
 ### App UI
-
-![ui](https://github.com/treeDweller98/CradleApp/blob/master/cradleSketch/cradle-ui.png?raw=true)
+<img src="https://github.com/treeDweller98/CradleApp/blob/master/cradleSketch/cradle-ui.png?raw=true" width=250>
